@@ -1,4 +1,4 @@
-
+let lessonClassArray = ['All Class','Class A','Class B', 'Class C']
 /**
  * this function creates rows for student tables
  * @param {*} pArray 
@@ -27,7 +27,7 @@ const classRender = (pArray,pClassContainer) => {
               <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
                 <div class="card shadow">             
                   <div class="card-body bg-success text-white">
-                    <h5 class="card-title  d-flex ">${student.name} ${student.lessons.length} Lessons <i class="fas fa-trash-alt ms-auto"></i></h5>
+                    <h5 class="card-title  d-flex ">${student.name} ${student.lessons.length} Lessons <i onclick='deleteStudent(${student.id})' class="fas fa-trash-alt ms-auto"></i></h5>
                   </div>              
                     <table class="table table-striped table-bordered m-0">
                       <thead>
@@ -124,17 +124,13 @@ const getClassReport = (pClassName) =>{
  * @returns 
  */
 const chartJS = (pClassName,pChartName) =>{ 
-  if(pClassName.hasOwnProperty('allStudent')){
-    pClassName.className ='All Classes'
-    console.log(pClassName)
-    return pClassName
-  }
+
   const myChart =  new Chart(pChartName, {    
     type: 'bar',
     data: {
         labels: getLessonNameList(pClassName),
         datasets: [{
-            label: ` Class Name ${pClassName.map(studentClassName => studentClassName.className)[0]}
+            label: ` Class Name ${lessonClassArray.map((studentClassName ) => studentClassName)}
             total Student ${pClassName.length}`,
             data:getClassReport(pClassName),
             backgroundColor: [

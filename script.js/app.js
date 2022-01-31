@@ -1,11 +1,11 @@
 addStudentForm.addEventListener('submit',addStudent)
-
+let idCounter =  allStudent.length
 /**
  * Lists of Classes
  */
-const classA = allStudent.filter((student) => student.className == 'A')
-const classB = allStudent.filter((student) => student.className == 'B')
-const classC = allStudent.filter((student) => student.className == 'C')
+let classA = allStudent.filter((student) => student.className == 'A')
+let classB = allStudent.filter((student) => student.className == 'B')
+let classC = allStudent.filter((student) => student.className == 'C')
 
 /**
  * Student List, Average and graphs of all classes
@@ -82,8 +82,10 @@ function classCRender(){
 }
 
 function addStudent(e){
+    idCounter++;
     e.preventDefault()
       let newStudent = {
+          id: idCounter,
           name : e.target['studentName'].value,
           className : e.target['inputGroupSelect01'].value,
           lessons : [
@@ -92,17 +94,20 @@ function addStudent(e){
                       {lessonName:'Chemist' , lessonScore : e.target['studentChemist'].value},
                       {lessonName:'Biologie' , lessonScore : e.target['studentBiologie'].value},      
                     ]    
-       } 
-  
+       }   
       allStudent.push(newStudent)
       console.log(allStudent)
-      renderHomePage()
-      addStudentForm.reset()
-         
+      classA = allStudent.filter((student) => student.className == 'A')
+      classB = allStudent.filter((student) => student.className == 'B')
+      classC = allStudent.filter((student) => student.className == 'C')
+      addStudentForm.reset()         
   }
   
-  function deleteStudent() {
-  
+  function deleteStudent(pStudentId) {
+    allStudent = allStudent.filter((student) =>student.id != pStudentId)
+    classA = allStudent.filter((student) => student.className == 'A')
+    classB = allStudent.filter((student) => student.className == 'B')
+    classC = allStudent.filter((student) => student.className == 'C')
     
   }
   
